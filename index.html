@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iglesia de Dios en Honduras</title>
+    <!-- Cargamos los estilos y los iconos automáticamente -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#0033ff] via-[#6600ff] to-[#ff0033] relative overflow-hidden text-white font-sans">
+
+    <!-- Efectos de luz de fondo -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-50"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-red-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-50"></div>
+    </div>
+
+    <div id="main-container" class="w-full max-w-md flex flex-col items-center z-10 transition-all duration-500">
+        
+        <!-- Encabezado Superior (Logo) -->
+        <div id="header-logo" class="mb-8 flex items-center justify-center transition-all duration-500">
+            <img src="logo blanco idd.jpg" alt="Iglesia de Dios en Honduras" class="max-w-full h-32 sm:h-48 object-contain drop-shadow-2xl">
+        </div>
+
+        <!-- Tarjeta Principal Glassmorphism -->
+        <div class="w-full glass rounded-3xl p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
+            
+            <!-- PANTALLA DE LOGIN -->
+            <div id="login-screen" class="block">
+                <h2 class="text-3xl font-bold text-center mb-6 tracking-wide">INICIAR SESIÓN</h2>
+                
+                <form id="login-form" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/80 ml-1">Usuario</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="h-5 w-5 text-white/60"></i>
+                            </div>
+                            <input type="text" id="username" placeholder="Ingrese su usuario (ej. LGC)" class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder-white/40 transition-all text-white uppercase" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/80 ml-1">Contraseña</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="lock" class="h-5 w-5 text-white/60"></i>
+                            </div>
+                            <input type="password" id="password" placeholder="••••••••••••" class="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder-white/40 transition-all text-white" required>
+                        </div>
+                    </div>
+
+                    <div id="login-error" class="hidden bg-red-500/20 border border-red-500/50 text-red-100 px-4 py-3 rounded-lg flex items-center text-sm">
+                        <i data-lucide="alert-circle" class="h-5 w-5 mr-2 flex-shrink-0"></i>
+                        <span id="login-error-text"></span>
+                    </div>
+
+                    <button type="submit" class="w-full flex items-center justify-center py-3 px-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all duration-200">
+                        <i data-lucide="log-in" class="h-5 w-5 mr-2"></i>
+                        ENTRAR
+                    </button>
+                </form>
+            </div>
+
+            <!-- PANTALLA PRINCIPAL (DASHBOARD) -->
+            <div id="dashboard-screen" class="hidden flex-col items-center w-full py-2">
+                <!-- Barra de usuario -->
+                <div class="w-full flex justify-between items-center mb-6 border-b border-white/20 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white/20 p-2 rounded-full">
+                            <i data-lucide="user" class="h-5 w-5 text-white"></i>
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <span class="text-xs text-white/70 leading-none mb-1">Usuario</span>
+                            <span id="display-username" class="font-bold text-white text-lg leading-tight"></span>
+                        </div>
+                    </div>
+                    <button id="logout-btn" class="flex items-center py-2 px-4 bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 text-white text-sm font-medium rounded-lg transition-all duration-200">
+                        <i data-lucide="log-out" class="h-4 w-4 sm:mr-2"></i>
+                        <span class="hidden sm:inline">Salir</span>
+                    </button>
+                </div>
+
+                <!-- Error de Área -->
+                <div id="area-error" class="hidden w-full bg-red-500/80 border border-red-500 text-white px-4 py-3 rounded-xl flex items-center text-sm mb-6">
+                    <i data-lucide="alert-circle" class="h-5 w-5 mr-3 flex-shrink-0"></i>
+                    <span id="area-error-text" class="font-medium"></span>
+                </div>
+
+                <!-- Lista de Botones -->
+                <div id="area-list" class="w-full block">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-center mb-8 leading-tight tracking-wide text-white drop-shadow-md">
+                        SUBIDA DE CONTENIDO <br class="hidden sm:block"/> ÁREAS DE LA CONEXIÓN 2033
+                    </h2>
+                    <div class="w-full space-y-4" id="buttons-container">
+                        <!-- Los botones se generan por JavaScript abajo -->
+                    </div>
+                </div>
+
+                <!-- Vista del Iframe (Mega) -->
+                <div id="iframe-view" class="hidden w-full">
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="back-btn" class="flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl transition-all">
+                            <i data-lucide="arrow-left" class="h-5 w-5 mr-2"></i>
+                            Volver
+                        </button>
+                        <span id="iframe-title" class="font-bold text-white text-right drop-shadow-md text-sm sm:text-base"></span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-2xl border border-white/20 p-2 shadow-inner flex justify-center overflow-hidden">
+                        <iframe id="area-iframe" width="100%" height="450" frameborder="0" src="" class="rounded-xl bg-white/5"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Pie de página Inferior (Logo) -->
+        <div id="footer-logo" class="mt-8 sm:mt-12 flex items-center justify-center transition-all duration-500">
+            <img src="CONEXION 2033 BLANCO.png" alt="Conexión 2033" class="max-w-full w-48 sm:w-64 object-contain drop-shadow-2xl">
+        </div>
+
+    </div>
+
+    <!-- Lógica de funcionamiento -->
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Datos de usuarios y enlaces
+        const validUsers = ['LGC', 'FI', 'DIF', 'IPS', 'CDM'];
+        const validPassword = '@Honduras2033';
+        let currentUser = '';
+
+        const areas = [
+            { id: 1, name: 'LA GRAN COMISIÓN', iframeSrc: 'https://mega.nz/filerequest#!Vt3b_eRZMnk!l!es', icon: 'globe', allowedUser: 'LGC' },
+            { id: 2, name: 'FORMACIÓN INTEGRAL', iframeSrc: 'https://mega.nz/filerequest#!k6dzt-199hQ!l!es', icon: 'book-open', allowedUser: 'FI' },
+            { id: 3, name: 'DESARROLLO INTEGRAL DE LA FAMILIA', iframeSrc: 'https://mega.nz/filerequest#!0n6-S_kxhY0!l!es', icon: 'heart', allowedUser: 'DIF' },
+            { id: 4, name: 'INCIDENCIA PUBLICA Y SOCIAL', iframeSrc: 'https://mega.nz/filerequest#!_V7yBJhap_4!l!es', icon: 'megaphone', allowedUser: 'IPS' },
+            { id: 5, name: 'CUIDADO Y DESARROLLO MINISTERIAL', iframeSrc: 'https://mega.nz/filerequest#!adL6a2Zt9zM!l!es', icon: 'shield', allowedUser: 'CDM' },
+        ];
+
+        // Referencias a elementos HTML
+        const loginScreen = document.getElementById('login-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const loginErrorText = document.getElementById('login-error-text');
+        const displayUsername = document.getElementById('display-username');
+        const mainContainer = document.getElementById('main-container');
+        const headerLogo = document.getElementById('header-logo');
+        const footerLogo = document.getElementById('footer-logo');
+        
+        const areaList = document.getElementById('area-list');
+        const iframeView = document.getElementById('iframe-view');
+        const areaError = document.getElementById('area-error');
+        const areaErrorText = document.getElementById('area-error-text');
+        const areaIframe = document.getElementById('area-iframe');
+        const iframeTitle = document.getElementById('iframe-title');
+
+        // Generar los 5 botones dinámicamente
+        const buttonsContainer = document.getElementById('buttons-container');
+        areas.forEach(area => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.className = 'group flex items-center justify-between w-full p-4 sm:p-5 bg-white/10 border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-200 cursor-pointer mb-4';
+            a.innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-white/10 rounded-xl shadow-inner group-hover:bg-white/30 transition-colors">
+                        <i data-lucide="${area.icon}" class="h-6 w-6 text-white"></i>
+                    </div>
+                    <span class="font-bold text-white tracking-wide text-left text-sm sm:text-base md:text-lg">${area.name}</span>
+                </div>
+                <div class="bg-white/5 p-2 rounded-full group-hover:bg-white/20 transition-all duration-300">
+                    <i data-lucide="chevron-right" class="h-5 w-5 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            `;
+            
+            // Lógica al hacer clic en un área
+            a.onclick = (e) => {
+                e.preventDefault();
+                if (currentUser === area.allowedUser) {
+                    areaError.classList.add('hidden');
+                    areaList.classList.remove('block');
+                    areaList.classList.add('hidden');
+                    iframeView.classList.remove('hidden');
+                    iframeTitle.textContent = area.name;
+                    areaIframe.src = area.iframeSrc;
+                } else {
+                    areaErrorText.textContent = 'No puede ingresar a esta área.';
+                    areaError.classList.remove('hidden');
+                    setTimeout(() => areaError.classList.add('hidden'), 3000);
+                }
+            };
+            buttonsContainer.appendChild(a);
+        });
+
+        // Refrescar iconos para los botones recién creados
+        lucide.createIcons();
+
+        // Iniciar Sesión
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userVal = document.getElementById('username').value.trim().toUpperCase();
+            const passVal = document.getElementById('password').value;
+
+            if (validUsers.includes(userVal) && passVal === validPassword) {
+                currentUser = userVal;
+                loginError.classList.add('hidden');
+                
+                // Cambiar pantallas
+                loginScreen.classList.remove('block');
+                loginScreen.classList.add('hidden');
+                dashboardScreen.classList.remove('hidden');
+                dashboardScreen.classList.add('flex');
+                displayUsername.textContent = currentUser;
+                
+                // Ajustar tamaños
+                mainContainer.classList.remove('max-w-md');
+                mainContainer.classList.add('max-w-2xl');
+                headerLogo.classList.add('scale-75', 'opacity-90');
+                footerLogo.classList.add('scale-90', 'opacity-60');
+                
+                // Limpiar formulario
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            } else {
+                loginErrorText.textContent = 'Usuario o contraseña incorrectos. Por favor, intente de nuevo.';
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        // Cerrar Sesión
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            currentUser = '';
+            loginScreen.classList.remove('hidden');
+            loginScreen.classList.add('block');
+            dashboardScreen.classList.remove('flex');
+            dashboardScreen.classList.add('hidden');
+            
+            // Reiniciar vistas
+            areaList.classList.remove('hidden');
+            areaList.classList.add('block');
+            iframeView.classList.add('hidden');
+            areaIframe.src = '';
+            areaError.classList.add('hidden');
+            
+            // Reiniciar tamaños
+            mainContainer.classList.remove('max-w-2xl');
+            mainContainer.classList.add('max-w-md');
+            headerLogo.classList.remove('scale-75', 'opacity-90');
+            footerLogo.classList.remove('scale-90', 'opacity-60');
+        });
+
+        // Botón Volver del Mega
+        document.getElementById('back-btn').addEventListener('click', () => {
+            iframeView.classList.add('hidden');
+            areaList.classList.remove('hidden');
+            areaList.classList.add('block');
+            areaIframe.src = ''; // Detiene la carga de mega en segundo plano
+        });
+    </script>
+</body>
+</html>
