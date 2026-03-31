@@ -138,7 +138,9 @@
 
         // Datos de usuarios y enlaces
         const validUsers = ['LGC', 'FI', 'DIF', 'IPS', 'CDM'];
-        const validPassword = '@Honduras2033';
+        
+        // La contraseña '@Honduras2033' ahora está codificada en Base64 para que no se lea a simple vista
+        const validPasswordEncoded = 'QEhvbmR1cmFzMjAzMw==';
         let currentUser = '';
 
         const areas = [
@@ -213,7 +215,8 @@
             const userVal = document.getElementById('username').value.trim().toUpperCase();
             const passVal = document.getElementById('password').value;
 
-            if (validUsers.includes(userVal) && passVal === validPassword) {
+            // Codificamos lo que el usuario escribió (btoa) y lo comparamos con nuestro código secreto
+            if (validUsers.includes(userVal) && btoa(passVal) === validPasswordEncoded) {
                 currentUser = userVal;
                 loginError.classList.add('hidden');
                 
