@@ -16,15 +16,15 @@
         }
     </style>
 </head>
-<body class="min-h-screen w-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#0033ff] via-[#6600ff] to-[#ff0033] relative overflow-hidden text-white font-sans">
+<body class="min-h-screen w-full flex flex-col items-center py-10 px-4 sm:p-6 bg-gradient-to-br from-[#0033ff] via-[#6600ff] to-[#ff0033] relative overflow-x-hidden text-white font-sans">
 
     <!-- Efectos de luz de fondo -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-50"></div>
         <div class="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-red-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-50"></div>
     </div>
 
-    <div id="main-container" class="w-full max-w-md flex flex-col items-center z-10 transition-all duration-500">
+    <div id="main-container" class="w-full max-w-md flex flex-col items-center z-10 transition-all duration-500 my-auto">
         
         <!-- Encabezado Superior (Logo) -->
         <div id="header-logo" class="mb-8 flex items-center justify-center transition-all duration-500">
